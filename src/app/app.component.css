@@ -1,0 +1,16 @@
+.img-fluid {
+    min-width: 792px;
+}
+
+.logo {
+    position: absolute;
+    top: 2px;
+    left: 75px;
+    width: 11%;
+    max-width: 195px;
+    min-width: 110px;
+}
+
+.col-lg-12 {
+    min-height: 800px;
+}

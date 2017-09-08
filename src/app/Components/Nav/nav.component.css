@@ -13,6 +13,7 @@
     height: 100%;
     padding: 5px 10px;
     color: white;
+    cursor: pointer;
 }
 
 .active {
@@ -23,22 +24,10 @@
     padding-left: 20%;
 }
 
-.logo {
-    position: absolute;
-    top: 2px;
-    left: 75px;
-    width: 11%;
-    max-width: 195px;
-    min-width: 110px;
-}
-
-.img-fluid {
-    min-width: 792px;
-}
-
 .bright.navbar-toggler {
     border-color: #C6A556;
     background: gray;
+    cursor: pointer;
 }
 
 .bright .navbar-toggler-icon {

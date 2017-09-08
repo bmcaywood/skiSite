@@ -1,0 +1,28 @@
+.navbar {
+    height: 100%;
+    background: #6E6D6B;
+}
+
+.navbar-collapse {
+    height: 35px;
+}
+
+.nav-item {
+    height: 100%;
+    width: 100%;
+    padding: 5px 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.active {
+    background: #C6A556;
+}
+
+.navbar-toggleable-sm {
+    padding: 10px;
+}
+
+.nav {
+    text-align: center;
+}
