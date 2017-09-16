@@ -9,5 +9,11 @@
                 <span [ngClass]="{'active': nav.isSelected}">{{nav.name}}</span>
             </li>
         </ul>
+        <ul class="navbar-nav mr-atuo right">
+            <li *ngIf="!user" class="nav-item" (click)="login()" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">LOGIN</li>
+            <li *ngIf="user" class="nav-item" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
+                <span class="fa fa-gear"></span>
+            </li>
+        </ul>
     </div>
 </nav>

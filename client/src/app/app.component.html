@@ -4,13 +4,14 @@
             <img src="../../assets/images/banner.png" class="img-fluid" alt="Banner image">
             <img src="../../assets/images/logo.png" class="logo" alt="logo">
 
-            <app-nav [buttons]="buttons"></app-nav>
+            <app-nav [buttons]="buttons" [user]='user'></app-nav>
 
-            <app-side-nav [buttons]="sideButtons"></app-side-nav>
+            <!-- <app-side-nav [buttons]="sideButtons"></app-side-nav> -->
+            <!-- <button class="btn-sm" (click)="testButton()">TestResponse</button> -->
+
 
             <div *ngIf="buttons[0].isSelected">
-                We are on the home page
-                <button class="btn-lg" (click)="testButton()">TestResponse</button>
+                <app-home [user]='user'></app-home>
             </div>
 
             <div *ngIf="buttons[1].isSelected">

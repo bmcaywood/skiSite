@@ -1,0 +1,12 @@
+.border-left {
+    border-left: solid 1px #95989A;
+}
+
+.row {
+    min-height: 800px;
+}
+
+.min-pad {
+    padding-left: 10px;
+    margin: 0 !important;
+}

@@ -4,18 +4,23 @@ import { PubNubAngular } from 'pubnub-angular2';
 import { AppComponent } from './app.component';
 import { NavModule } from './Components/Nav/nav.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-
+import { HomeModule } from './Components/home/home.module';
+import { CookieModule } from 'ngx-cookie';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     NgbModule.forRoot(),
-    NavModule
+    NavModule,
+    HomeModule,
+    CookieModule.forRoot()
   ],
-  providers: [PubNubAngular],
+  providers: [
+    PubNubAngular,
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

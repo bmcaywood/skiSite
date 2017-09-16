@@ -1,0 +1,19 @@
+<div class="container offset-1" *ngIf="!user || !isAdmin">
+    <div class="row">
+        <div class="col-9">
+            <h1 class="text-center">Welcome to Utah Skiing Guide</h1>
+            <h2 class="text-center">A Guide By Locals</h2>
+        </div>
+        <div class="col-2 border-left">
+            sidebar
+        </div>
+    </div>
+</div>
+<div class="container min-pad">
+    <div class="row" *ngIf="isAdmin">
+        <app-side-nav [buttons]="sideButtons"></app-side-nav>
+        <div *ngIf="sideButtons[0].isSelected">
+
+        </div>
+    </div>
+</div>

@@ -3,37 +3,28 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var PubNub = require('pubnub');
+var app = express();
+
+var { Client } = require('pg');
+var format = require('pg-format');
+var pgKey = require('./keys/pg');
+
+var client = new Client(pgKey);
+client.connect();
+
+client.query('SELECT * from rating_type;', (err, res) => {
+    console.log(err, res);
+    client.end;
+});
 
 // Import keys
 var pubnubKey = require('./keys/pubnub');
+var passport = require('passport');
 
 pubnub = new PubNub(pubnubKey);
 
-var publishConfig = {
-    channel: "anotherTest",
-    message: { name: "george", id: 'test' }
-}
+require('./controllers/pubnub')(pubnub);
 
-pubnub.publish(publishConfig, function(status, response) {
-    console.log(status, response);
-});
-
-pubnub.addListener({
-    message: (m) => {
-        console.log(m);
-    }
-});
-
-('response', (message) => {
-    console.log(message);
-});
-
-pubnub.subscribe({
-    channels: ['response']
-});
-
-
-var app = express();
 
 // port number
 const port = 8080;
