@@ -19,11 +19,10 @@ client.query('SELECT * from rating_type;', (err, res) => {
 
 // Import keys
 var pubnubKey = require('./keys/pubnub');
-var passport = require('passport');
 
 pubnub = new PubNub(pubnubKey);
 
-require('./controllers/pubnub')(pubnub);
+require('./controllers/pubnub')(pubnub, client, format);
 
 
 // port number

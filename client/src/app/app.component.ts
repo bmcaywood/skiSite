@@ -15,6 +15,9 @@ export class AppComponent implements OnInit {
   public buttons: NavButton[] = [{name: 'HOME', isSelected: true}, {name: 'RESORTS', isSelected: false}, {name: 'BLOG', isSelected: false},
   {name: 'LOCAL', isSelected: false}];
 
+  public loginButton: NavButton = {name: 'LOGIN', isSelected: false};
+  public loginErr: string = null;
+
   public user: any = null;
   public isAdmin: boolean = false;
 
@@ -29,7 +32,7 @@ export class AppComponent implements OnInit {
   // }
 
   ngOnInit() {
-    this.pubnub.subscribe({ channels: ['anotherTest', 'userLogin'], triggerEvents: true, withPresence: true });
+    this.pubnub.subscribe({ channels: ['anotherTest', 'userLogin', 'userRegistered'], triggerEvents: true, withPresence: true });
     // this.pubnub.addListener({
     //   status: (se)  => {
     //     if(_.isEqual(se.category, 'PNConnectedCategory')) {
@@ -50,10 +53,27 @@ export class AppComponent implements OnInit {
       console.log(message);
     });
 
-    this.pubnub.getMessage('userLogin', (message) => {
-      this.user = message.message;
+    this.pubnub.getMessage('userLogin', (m) => {
+      if(m.message.error) {
+        console.log('error getting user: ' + m.message.error);
+        this.loginErr = m.message.error;
+      } else {
+      this.user = m.message;
       this.cookieService.putObject('user', this.user);
-      console.log(message);      
+      console.log(m);  
+      }    
+    });
+
+    this.pubnub.getMessage('userRegistered', (m) => {
+      if(m.message.error) {
+        console.log('error getting user: ' + m.message.error);
+        this.loginErr = m.message.error;
+      } else {
+        //TODO SUBSCRIBE TO NEW CHANNEL WITH UUID
+      this.user = m.message;
+      this.cookieService.putObject('user', this.user);
+      console.log(m);  
+      }    
     });
 
     this.user = this.cookieService.getObject('user');    

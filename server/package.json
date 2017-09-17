@@ -1,22 +1,22 @@
 {
-  "name": "skiutah",
-  "version": "1.0.0",
-  "description": "Utah Skiing Guide",
-  "main": "main.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^1.0.3",
-    "body-parser": "^1.17.2",
-    "cors": "^2.8.4",
-    "express": "^4.15.4",
-    "passport": "^0.4.0",
-    "pg": "^7.3.0",
-    "pg-format": "^1.0.4",
-    "pubnub": "^4.15.1",
-    "supervisor": "^0.12.0"
-  }
+    "name": "skiutah",
+    "version": "1.0.0",
+    "description": "Utah Skiing Guide",
+    "main": "main.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "debug": "node main.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "bcrypt": "^1.0.3",
+        "body-parser": "^1.17.2",
+        "cors": "^2.8.4",
+        "express": "^4.15.4",
+        "pg": "^7.3.0",
+        "pg-format": "^1.0.4",
+        "pubnub": "^4.15.1",
+        "supervisor": "^0.12.0"
+    }
 }
