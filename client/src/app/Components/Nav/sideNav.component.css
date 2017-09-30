@@ -1,6 +1,7 @@
 .navbar {
     height: 100%;
     background: #6E6D6B;
+    align-items: baseline;
 }
 
 .navbar-collapse {

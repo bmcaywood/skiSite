@@ -27,7 +27,7 @@
             </div>
 
             <div *ngIf="loginButton.isSelected">
-                <app-login [loginErr]="loginErr"></app-login>
+                <app-login (loggedIn)="newUser($event)"></app-login>
             </div>
         </div>
     </div>

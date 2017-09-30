@@ -9,11 +9,11 @@
         </div>
     </div>
 </div>
-<div class="container min-pad">
+<div class="container-fluid min-pad">
     <div class="row" *ngIf="isAdmin">
         <app-side-nav [buttons]="sideButtons"></app-side-nav>
-        <div *ngIf="sideButtons[0].isSelected">
-
+        <div class="col-10" *ngIf="sideButtons[0].isSelected">
+            <app-posts></app-posts>
         </div>
     </div>
 </div>

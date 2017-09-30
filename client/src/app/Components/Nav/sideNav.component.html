@@ -1,4 +1,4 @@
-<div class="no-pad float-left navbar">
+<div class="no-pad col-lg-12 navbar">
     <ul class="nav flex-column">
         <span *ngFor="let nav of buttons" class="nav-item" (click)="selectButton(nav)" [ngClass]="{'active': nav.isSelected}">
                 <span [ngClass]="{'active': nav.isSelected}">{{nav.name}}</span>

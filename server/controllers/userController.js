@@ -2,12 +2,13 @@ var bcrypt = require('../config/bcrypt');
 
 function getUser(client, format, username, cb) {
     if (!username || !username.trim()) {
-        var errMsg = 'Error: Attempted to find username without specifying which user';
+        var errMsg =
+            'Error: Attempted to find username without specifying which user';
         console.log(errMsg);
         return cb(errMsg, null);
     }
 
-    var query = format('SELECT id, name, email, username, uuid, priv FROM users WHERE username=%L', username);
+    var query = format('SELECT * FROM users WHERE username=%L', username);
 
     client.query(query, (err, res) => {
         if (err) {
@@ -40,21 +41,22 @@ function login(client, format, username, pass, cb) {
         }
 
         // if the user is found verify the password
-        bcrypt.comparePass(pass, user.pass,
-            function(err, passMatch) {
-                if (err) {
-                    return cb(null, false, { error: 'Invalid Password.' });
-                }
+        bcrypt.comparePass(pass, user.pass, function(err, passMatch) {
+            if (err) {
+                return cb(null, false, { error: 'Invalid Password.' });
+            }
 
-                // all is well, return successful user
-                return cb(null, user);
-            });
+            // all is well, return successful user
+            return cb(null, user);
+        });
     });
 }
 
 function createUser(client, format, name, pass, email, username, cb) {
-    if (!name || !name.trim() || !email || !email.trim() || !username || !pass || !username.trim() || !pass.trim()) {
-        var errMsg = 'Error: attempted to register without all the needed parameters';
+    if (!name || !name.trim() || !email || !email.trim() || !username || !pass ||
+        !username.trim() || !pass.trim()) {
+        var errMsg =
+            'Error: attempted to register without all the needed parameters';
         console.log(errMsg);
         return cb(errMsg, null);
     }
@@ -68,27 +70,28 @@ function createUser(client, format, name, pass, email, username, cb) {
             }
         }
 
-        bcrypt.cryptPassword(pass,
-            (err, hash) => {
+        bcrypt.cryptPassword(pass, (err, hash) => {
+            if (err) {
+                return cb('Unable to create hash of password: ' + err, null);
+            }
+            // create the user
+            var query = format(
+                'INSERT INTO users(name, pass, email, username, priv) VALUES(%L, %L, %L, %L, %L)',
+                name, hash, email, username, 7); // TODO PRIV NEED TO DETERMINE
+            client.query(query, (err, res) => {
                 if (err) {
-                    return cb("Unable to create hash of password: " + err, null);
+                    return cb(err, null);
                 }
-                // create the user
-                var query = format('INSERT INTO users(name, pass, email, username, priv) VALUES(%L, %L, %L, %L, %L)', name, hash, email, username, 7); //TODO UUID NEED TO GENERATE, PRIV NEED TO DETERMINE
-                client.query(query, (err, res) => {
+
+                this.getUser(client, format, username, (err, user) => {
                     if (err) {
                         return cb(err, null);
                     }
+                    return cb(null, user);
+                });
 
-                    this.getUser(client, format, username, (err, user) => {
-                        if (err) {
-                            return cb(err, null);
-                        }
-                        return cb(null, user);
-                    });
-
-                })
-            });
+            })
+        });
     });
 }
 

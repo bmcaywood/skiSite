@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { NavButton } from './Components/Nav/navButton.interface';
-import { PubNubAngular } from 'pubnub-angular2';
-import { CookieService, CookieOptions } from 'ngx-cookie';
-import pubNubKey from './keys/pubNub';
+import {Component, OnInit} from '@angular/core';
+import {UUID} from 'angular2-uuid';
 import * as _ from 'lodash';
+import {CookieOptions, CookieService} from 'ngx-cookie';
+import {PubNubAngular} from 'pubnub-angular2';
+
+import {NavButton} from './Components/Nav/navButton.interface';
+import {User} from './model/user';
+import {Mediator} from './service/mediator';
+import {UserService} from './service/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,79 +15,29 @@ import * as _ from 'lodash';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-
-  public buttons: NavButton[] = [{name: 'HOME', isSelected: true}, {name: 'RESORTS', isSelected: false}, {name: 'BLOG', isSelected: false},
-  {name: 'LOCAL', isSelected: false}];
+  public buttons: NavButton[] = [
+    {name: 'HOME', isSelected: true}, {name: 'RESORTS', isSelected: false},
+    {name: 'BLOG', isSelected: false}, {name: 'LOCAL', isSelected: false}
+  ];
 
   public loginButton: NavButton = {name: 'LOGIN', isSelected: false};
-  public loginErr: string = null;
 
-  public user: any = null;
-  public isAdmin: boolean = false;
+  public user: User = null;
+  public isAdmin = false;
 
-  private pubnub: PubNubAngular = new PubNubAngular();
-
-  constructor(private cookieService: CookieService) {
-    this.pubnub.init(pubNubKey);
-  }
-
-  // public play() {
-  //   console.log('here');
-  // }
+  constructor(
+      private cookieService: CookieService, private userService: UserService,
+      private mediator: Mediator) {}
 
   ngOnInit() {
-    this.pubnub.subscribe({ channels: ['anotherTest', 'userLogin', 'userRegistered'], triggerEvents: true, withPresence: true });
-    // this.pubnub.addListener({
-    //   status: (se)  => {
-    //     if(_.isEqual(se.category, 'PNConnectedCategory')) {
-    //       this.play();
-    //     } else if (_.isEqual(se.category, 'PNUnknownCategory')) {
-    //       const newState = { new: 'error' };
-    //       this.pubnub.setState( { state: newState },
-    //       (st) => {
-    //         console.log(se.errorData.message);
-    //       });
-    //     }
-    //   },
-    //   message: (message) => {
-    //     console.log(message);
-    //   }
-    // });
-    this.pubnub.getMessage('anotherTest', (message) => {
-      console.log(message);
-    });
-
-    this.pubnub.getMessage('userLogin', (m) => {
-      if(m.message.error) {
-        console.log('error getting user: ' + m.message.error);
-        this.loginErr = m.message.error;
-      } else {
-      this.user = m.message;
-      this.cookieService.putObject('user', this.user);
-      console.log(m);  
-      }    
-    });
-
-    this.pubnub.getMessage('userRegistered', (m) => {
-      if(m.message.error) {
-        console.log('error getting user: ' + m.message.error);
-        this.loginErr = m.message.error;
-      } else {
-        //TODO SUBSCRIBE TO NEW CHANNEL WITH UUID
-      this.user = m.message;
-      this.cookieService.putObject('user', this.user);
-      console.log(m);  
-      }    
-    });
-
-    this.user = this.cookieService.getObject('user');    
+    this.user = this.cookieService.getObject('user') as User;
   }
 
-  public testButton() {
-    this.pubnub.publish(
-      {channel: 'response',
-      message: { gotIt: 'okidokie', id: 'test' }}, (response) =>{
-        console.log(response);
-    });
+  public newUser(newUser: boolean) {
+    if (newUser) {
+      this.user = this.cookieService.getObject('user') as User;
+      this.loginButton.isSelected = false;
+      this.buttons[0].isSelected = true;
+    }
   }
 }

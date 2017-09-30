@@ -1,20 +1,21 @@
 <div class="login-page">
     <div class="form">
         <form class="login-form">
-            <p *ngIf="loginErr" class="error">{{loginErr}}</p>
             <span *ngIf="!register">
-              <input type="text" placeholder="username" [(ngModel)]="username" name="username" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
-              <input type="password" placeholder="password" [(ngModel)]="pass" name="pass" (keyup)="enableSubmit()" (blur)="enableSubmit()"/>
+                <div *ngIf="loginErr" class="error">{{loginErr}}</div>
+              <input type="text" placeholder="username" [(ngModel)]="user.username" name="username" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
+              <input type="password" placeholder="password" [(ngModel)]="user.pass" name="pass" (keyup)="enableSubmit()" (blur)="enableSubmit()"/>
               <button [class.disabled]="!canSubmit" type="button" class="btn btn-primary" (click)="login()">LOGIN</button>
               <span class="message">
                 Not registered? <span (click)="register = !register">Create an account</span>
             </span>
             </span>
             <span *ngIf="register">
-                <input type="text" placeholder="name" [(ngModel)]="name" name="name" (keyup)="enableSubmit()" (blur)="enableSubmit()" />                
-                <input type="text" placeholder="username" [(ngModel)]="username" name="username" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
-                <input type="email" placeholder="you@email.com" [(ngModel)]="email" name="email" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
-                <input type="password" placeholder="password" [(ngModel)]="pass" name="pass"(keyup)="enableSubmit()" (blur)="enableSubmit()" />
+                <div *ngIf="registerErr" class="error">{{registerErr}}</div>
+                <input type="text" placeholder="name" [(ngModel)]="user.name" name="name" (keyup)="enableSubmit()" (blur)="enableSubmit()" />                
+                <input type="text" placeholder="username" [(ngModel)]="user.username" name="username" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
+                <input type="email" placeholder="you@email.com" [(ngModel)]="user.email" name="email" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
+                <input type="password" placeholder="password" [(ngModel)]="user.pass" name="pass"(keyup)="enableSubmit()" (blur)="enableSubmit()" />
                 <input type="password" placeholder="re-type password" [(ngModel)]="passConfirm" name="passConfirm" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
                 <button type="button" [class.disabled]="!canSubmit" class="btn btn-primary" (click)="newUser()">REGISTER</button>
                 <span class="message">

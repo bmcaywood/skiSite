@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var PubNub = require('pubnub');
 var app = express();
+var server = require('http').createServer();
 
 var { Client } = require('pg');
 var format = require('pg-format');
@@ -18,11 +19,13 @@ client.query('SELECT * from rating_type;', (err, res) => {
 });
 
 // Import keys
-var pubnubKey = require('./keys/pubnub');
+//var pubnubKey = require('./keys/pubnub');
 
-pubnub = new PubNub(pubnubKey);
+//pubnub = new PubNub(pubnubKey);
 
-require('./controllers/pubnub')(pubnub, client, format);
+//require('./controllers/pubnub')(pubnub, client, format);
+
+require('./controllers/socket')(app, server, client, format);
 
 
 // port number
