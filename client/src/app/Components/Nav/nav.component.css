@@ -3,6 +3,12 @@
     margin-top: -35px;
     background: rgba(0, 0, 0, .3);
     max-width: 1920px;
+    padding-left: 230px;
+    z-index: 10;
+}
+
+.navbar-nav {
+    flex-direction: row;
 }
 
 .navbar-collapse {

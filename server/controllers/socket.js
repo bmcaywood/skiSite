@@ -79,6 +79,16 @@ module.exports =
                     }
                 });
             });
+            socket.on('addPost', (post) => {
+                postCtrl.addPost(client, format, post, (err, newPost) => {
+                    if (err) {
+                        socket.emit('newPost', { error: err });
+                    } else {
+                        // Broadcast new post to all users
+                        io.emit('newPost', newPost);
+                    }
+                });
+            });
         })
     }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
@@ -16,9 +16,12 @@ import {Mediator} from '../../service/mediator';
 export class PostsComponent implements OnInit {
   @Input() user: User;
   public posts: Post[] = [];
-  public post: Post = null;
+  public post: Post = new Post();
   public resort: Resort = null;
   public resorts: Resort[] = null;
+  public canSubmit = false;
+
+  public selectedResort: Resort = null;
 
   constructor(private modalService: NgbModal, private mediator: Mediator) {}
 
@@ -30,11 +33,23 @@ export class PostsComponent implements OnInit {
         this.resorts = resorts;
       }
     });
-    this.mediator.subscribe(serverResponse.POSTS, (posts) => {
+    this.mediator.subscribe(serverResponse.POSTSBYUSER, (posts) => {
       if (posts.error) {
         console.log(posts.error);
       } else {
-        this.posts = posts;
+        this.posts = this.post.setPosts(posts, this.resorts);
+      }
+    });
+
+    this.mediator.subscribe(serverResponse.NEWPOST, (post) => {
+      if (post.error) {
+        console.log(post.error);
+      } else {
+        const newPost = new Post();
+        newPost.copyInto(post, this.resorts);
+        if (newPost.userId === this.user.id) {
+          this.posts.push(newPost);
+        }
       }
     });
 
@@ -43,6 +58,9 @@ export class PostsComponent implements OnInit {
   }
 
   public openPostModal(content) {
+    this.canSubmit = false;
+    this.post = new Post();
+    this.post.userId = this.user.id;
     this.modalService.open(content).result.then(
         (result) => {
           console.log(result);
@@ -50,6 +68,18 @@ export class PostsComponent implements OnInit {
         (reason) => {
           console.log(this.getDismissReason(reason));
         });
+  }
+
+  public enableSubmit() {
+    this.canSubmit =
+        this.post.resort && this.post.title && this.post.text !== undefined;
+  }
+
+  public savePost(c: any) {
+    if (this.canSubmit) {
+      c('saveClicked');
+      this.mediator.publish(clientRequests.ADDPOST, this.post);
+    }
   }
 
   private getDismissReason(reason: any): string {

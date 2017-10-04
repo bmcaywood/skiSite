@@ -1,15 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HomeComponent } from './home.component';
-import { NavModule } from '../Nav/nav.module';
-import { PostsComponent } from './posts.component';
+import {CommonModule} from '@angular/common';
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+
+import {NavModule} from '../Nav/nav.module';
+
+import {HomeComponent} from './home.component';
+import {PostsComponent} from './posts.component';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    NavModule
-  ],
+  imports: [CommonModule, NavModule, FormsModule],
   declarations: [HomeComponent, PostsComponent],
   exports: [HomeComponent]
 })
-export class HomeModule { }
+export class HomeModule {}

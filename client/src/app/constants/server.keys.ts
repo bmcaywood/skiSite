@@ -17,6 +17,7 @@ const serverResponse: any = {
   POSTS: 'posts',
   POSTSBYUSER: 'postsByUser',
   POSTSBYRESORT: 'postsByResort',
+  NEWPOST: 'newPost',
 };
 
 export {clientRequests, serverResponse};

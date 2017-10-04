@@ -2,7 +2,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
-var PubNub = require('pubnub');
 var app = express();
 var server = require('http').createServer();
 
@@ -18,12 +17,6 @@ client.query('SELECT * from rating_type;', (err, res) => {
     client.end;
 });
 
-// Import keys
-//var pubnubKey = require('./keys/pubnub');
-
-//pubnub = new PubNub(pubnubKey);
-
-//require('./controllers/pubnub')(pubnub, client, format);
 
 require('./controllers/socket')(app, server, client, format);
 

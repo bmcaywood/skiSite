@@ -3,14 +3,18 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Name:</th>
-                <th>Date:</th>
                 <th>Post Title:</th>
+                <th>Resort:</th>
+                <th>Date:</th>
                 <th></th>
             </tr>
         </thead>
         <tbody *ngIf="posts.length > 0">
             <tr *ngFor="let post of posts">
+                <td>{{post.title}}</td>
+                <td>{{post.resort.name}}</td>
+                <td>{{post.timeStamp.format("MMM-DD-YYYY HH:mm A")}}</td>
+                <td></td>
 
             </tr>
         </tbody>
@@ -34,15 +38,20 @@
     <div class="modal-body">
         <div class="form">
             <form class="login-form">
-                <span>
-                    <!-- <input type="text" placeholder="username" [(ngModel)]="user.username" name="username" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
-                    <input type="password" placeholder="password" [(ngModel)]="user.pass" name="pass" (keyup)="enableSubmit()" (blur)="enableSubmit()"/> -->
+                <span class="flex-column">
+                    <select name="resorts" class="custom-select" [(ngModel)]="post.resort">
+                        <option *ngFor="let res of resorts" [ngValue]="res">{{res.name}}</option>
+                    </select>
+                <hr>
+                    <input type="text" placeholder="post title" [(ngModel)]="post.title" name="postTitle" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
+                <hr>
+                    <textarea placeholder="post info" [(ngModel)]="post.text" name="postText" (keyup)="enableSubmit()" (blur)="enableSubmit()"> </textarea>
                 </span>
             </form>
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
-        <button [class.disabled]="!canSubmit" type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
+        <button type="button" [class.disabled]="!canSubmit" class="btn btn-primary" (click)="savePost(c)">Save</button>
     </div>
 </ng-template>

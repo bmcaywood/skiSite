@@ -13,7 +13,7 @@
     <div class="row" *ngIf="isAdmin">
         <app-side-nav [buttons]="sideButtons"></app-side-nav>
         <div class="col-10" *ngIf="sideButtons[0].isSelected">
-            <app-posts></app-posts>
+            <app-posts [user]="user"></app-posts>
         </div>
     </div>
 </div>
