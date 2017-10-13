@@ -80,16 +80,37 @@ module.exports =
                 });
             });
             socket.on('addPost', (post) => {
-                postCtrl.addPost(client, format, post, (err, newPost) => {
+                if(post.id) {
+                    postCtrl.updatePost(client, format, post, (err, updatedPost) => {
+                        if (err) {
+                            socket.emit('updatedPost', { error: err });
+                        } else {
+                            // Broadcast new post to all users
+                            io.emit('updatedPost', updatedPost);
+                        }
+                    });
+                } else {
+                    postCtrl.addPost(client, format, post, (err, newPost) => {
+                        if (err) {
+                            socket.emit('newPost', { error: err });
+                        } else {
+                            // Broadcast new post to all users
+                            io.emit('newPost', newPost);
+                        }
+                    });
+                }
+            });
+            socket.on('removePost', (postId) => {
+                postCtrl.removePost(client, format, postId, (err, removedPostId) => {
                     if (err) {
-                        socket.emit('newPost', { error: err });
+                        socket.emit('removedPost', { error: err });
                     } else {
                         // Broadcast new post to all users
-                        io.emit('newPost', newPost);
+                        io.emit('removedPost', removedPostId);
                     }
                 });
             });
-        })
+        });
     }
 
 // How to use

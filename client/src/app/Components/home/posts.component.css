@@ -53,6 +53,10 @@ td {
     padding: 5px 10px;
 }
 
+.modal .modal-dialog {
+    max-width: 90% !important;
+}
+
 textarea {
     width: 100%;
     background: #f2f2f2;

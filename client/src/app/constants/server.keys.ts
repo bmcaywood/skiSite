@@ -6,7 +6,8 @@ const clientRequests: any = {
   GETPOSTS: 'getPosts',
   GETPOSTSBYUSER: 'getPostsByUser',
   GETPOSTSBYRESORT: 'getPostsByResort',
-  ADDPOST: 'addPost'
+  ADDPOST: 'addPost',
+  REMOVEPOST: 'removePost',
 };
 
 const serverResponse: any = {
@@ -18,6 +19,8 @@ const serverResponse: any = {
   POSTSBYUSER: 'postsByUser',
   POSTSBYRESORT: 'postsByResort',
   NEWPOST: 'newPost',
+  UPDATEDPOST: 'updatedPost',
+  REMOVEDPOST: 'removedPost',
 };
 
 export {clientRequests, serverResponse};

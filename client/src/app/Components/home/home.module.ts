@@ -6,9 +6,10 @@ import {NavModule} from '../Nav/nav.module';
 
 import {HomeComponent} from './home.component';
 import {PostsComponent} from './posts.component';
+import {HelperModule} from '../helpers/helper.module';
 
 @NgModule({
-  imports: [CommonModule, NavModule, FormsModule],
+  imports: [CommonModule, NavModule, FormsModule, HelperModule],
   declarations: [HomeComponent, PostsComponent],
   exports: [HomeComponent]
 })

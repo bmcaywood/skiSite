@@ -7,10 +7,12 @@ import {Post} from '../../model/post';
 import {Resort} from '../../model/resort';
 import {User} from '../../model/user';
 import {Mediator} from '../../service/mediator';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./posts.component.css']
 })
 export class PostsComponent implements OnInit {
@@ -53,6 +55,36 @@ export class PostsComponent implements OnInit {
       }
     });
 
+    this.mediator.subscribe(serverResponse.UPDATEDPOST, (post) => {
+      if (post.error) {
+        console.log(post.error);
+      } else {
+        const newPost = new Post();
+        newPost.copyInto(post, this.resorts);
+        if (newPost.userId === this.user.id) {
+          const index = _.findIndex(this.posts, p => {
+            return +p.id === newPost.id;
+          });
+          if (index > -1) {
+            this.posts[index] = newPost;
+          }
+        }
+      }
+    });
+
+    this.mediator.subscribe(serverResponse.REMOVEDPOST, (postId) => {
+      if (postId.error) {
+        console.log(postId.error);
+      } else {
+          const index = _.findIndex(this.posts, p => {
+            return +p.id === +postId.id;
+          });
+          if (index > -1) {
+            this.posts.splice(index, 1);
+          }
+      }
+    });
+
     this.mediator.request(clientRequests.GETRESORTS);
     this.mediator.request(clientRequests.GETPOSTSBYUSER, this.user.id);
   }
@@ -61,7 +93,7 @@ export class PostsComponent implements OnInit {
     this.canSubmit = false;
     this.post = new Post();
     this.post.userId = this.user.id;
-    this.modalService.open(content).result.then(
+    this.modalService.open(content, { windowClass: 'wide-modal' }).result.then(
         (result) => {
           console.log(result);
         },
@@ -82,6 +114,23 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  public remove(post: Post) {
+    this.mediator.publish(clientRequests.REMOVEPOST, post.id);
+  }
+
+  public edit(content, post: Post) {
+    this.post = _.cloneDeep(post);
+    this.post.userId = this.user.id;
+    this.post.resort = post.resort;
+    this.modalService.open(content).result.then(
+        (result) => {
+          console.log(result);
+        },
+        (reason) => {
+          console.log(this.getDismissReason(reason));
+        });
+  }
+
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -90,5 +139,9 @@ export class PostsComponent implements OnInit {
     } else {
       return `with: ${reason}`;
     }
+  }
+
+  public newContent(content: string) {
+    this.post.text = content;
   }
 }

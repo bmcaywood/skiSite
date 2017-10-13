@@ -30,6 +30,9 @@ export class Post {
   }
 
   public copyInto(post: any, resorts: Resort[]) {
+    if (post.id) {
+      this.id = +post.id;
+    }
     this.userId = post.user_id;
     this.resort = new Resort();
     const index = _.findIndex(resorts, (r) => {

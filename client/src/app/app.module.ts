@@ -11,6 +11,7 @@ import {LoginModule} from './Components/login/login.module';
 import {NavModule} from './Components/Nav/nav.module';
 import {Mediator} from './service/mediator';
 import {UserService} from './service/user.service';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {UserService} from './service/user.service';
     CookieModule.forRoot(),
     LoginModule,
     FormsModule,
+    CKEditorModule,
   ],
   providers: [PubNubAngular, UserService, Mediator],
   bootstrap: [AppComponent]

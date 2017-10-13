@@ -14,7 +14,9 @@
                 <td>{{post.title}}</td>
                 <td>{{post.resort.name}}</td>
                 <td>{{post.timeStamp.format("MMM-DD-YYYY HH:mm A")}}</td>
-                <td></td>
+                <td> <span class="fa fa-edit" (click)="edit(content, post)"></span>
+                    <span class="fa fa-trash" (click)="remove(post)"></span>
+                </td>
 
             </tr>
         </tbody>
@@ -46,6 +48,8 @@
                     <input type="text" placeholder="post title" [(ngModel)]="post.title" name="postTitle" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
                 <hr>
                     <textarea placeholder="post info" [(ngModel)]="post.text" name="postText" (keyup)="enableSubmit()" (blur)="enableSubmit()"> </textarea>
+                    <app-inline-editor [editorContent]="post.text" (inlineContent)="newContent($event)">
+                    </app-inline-editor>
                 </span>
             </form>
         </div>
