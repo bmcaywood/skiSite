@@ -8,6 +8,10 @@ button:focus {
     background: #D3A741;
 }
 
+button.close:hover {
+    background: #FFFFFF;
+}
+
 button {
     font-family: "Roboto", sans-serif;
     outline: 0;

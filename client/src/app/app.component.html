@@ -6,9 +6,6 @@
 
             <app-nav [buttons]="buttons" [loginButton]="loginButton" [user]="user"></app-nav>
 
-            <!-- <app-side-nav [buttons]="sideButtons"></app-side-nav> -->
-            <!-- <button class="btn-sm" (click)="testButton()">TestResponse</button> -->
-
 
             <div *ngIf="buttons[0].isSelected">
                 <app-home [user]='user'></app-home>

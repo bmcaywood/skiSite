@@ -1,0 +1,56 @@
+<div class="col-lg-12 pad">
+    <button type="button" class="btn btn-sm" (click)="openPostModal(content)">ADD RATING</button>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Resort:</th>
+                <th>Overall:</th>
+                <th>Terrain:</th>
+                <th>Park:</th>
+                <th>Staff:</th>
+                <th>Fam Friendly:</th>
+                <th>Crowd Control:</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="userRatings.length > 0">
+            <tr *ngFor="let rating of userRatings">
+                <td>{{rating.resort.name}}</td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.OVERALL]?.rating"></app-rater>
+                </td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.TERRAIN]?.rating"></app-rater>
+                </td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.PARK]?.rating"></app-rater>
+                </td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.STAFF]?.rating"></app-rater>
+                </td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.FAMFRIENDLY]?.rating"></app-rater>
+                </td>
+                <td>
+                    <app-rater [rating]="userRatings[ratingType.CROWDCONTROL]?.rating"></app-rater>
+                </td>
+                <td> <span class="fa fa-edit" (click)="edit(content, post)"></span>
+                    <span class="fa fa-trash" (click)="remove(post)"></span>
+                </td>
+
+            </tr>
+        </tbody>
+        <tbody *ngIf="userRatings.length === 0">
+            <tr>
+                <td colspan="9">
+                    No Ratings
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<div>
+    <app-rater></app-rater>
+</div>

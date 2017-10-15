@@ -7,3 +7,8 @@ export class User {
   public username: string;
   public priv: number;
 }
+
+export class SimpleUser {
+  public id: number;
+  public name: string;
+}

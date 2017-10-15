@@ -32,7 +32,7 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title">Add Post</h4>
+        <h4 class="modal-title">{{title}}</h4>
         <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -47,7 +47,6 @@
                 <hr>
                     <input type="text" placeholder="post title" [(ngModel)]="post.title" name="postTitle" (keyup)="enableSubmit()" (blur)="enableSubmit()" />
                 <hr>
-                    <textarea placeholder="post info" [(ngModel)]="post.text" name="postText" (keyup)="enableSubmit()" (blur)="enableSubmit()"> </textarea>
                     <app-inline-editor [editorContent]="post.text" (inlineContent)="newContent($event)">
                     </app-inline-editor>
                 </span>
@@ -55,7 +54,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="c('Close click')">Close</button>
-        <button type="button" [class.disabled]="!canSubmit" class="btn btn-primary" (click)="savePost(c)">Save</button>
+        <button type="button" class="btn btn-med" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-med" [class.disabled]="!canSubmit" (click)="savePost(c)">Save</button>
     </div>
 </ng-template>

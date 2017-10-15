@@ -1,0 +1,33 @@
+<div class="col-lg-12 pad">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User:</th>
+                <th>OnPost:</th>
+                <th>Comment:</th>
+                <th>Date:</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody *ngIf="comments.length > 0">
+            <tr *ngFor="let comment of comments">
+                <td>{{comment.user.name}}</td>
+                <td>{{comment.post.title}}</td>
+                <td>{{comment.comment}}</td>
+                <td>{{comment.date.format("MMM-DD-YYYY HH:mm A")}}</td>
+                <!-- TODO: APPROVE OR REMOVE, WITH COMMENT TO USER WHO MADE COMMENT -->
+                <td> <span class="fa fa-edit" (click)="edit(content, post)"></span>
+                    <span class="fa fa-trash" (click)="remove(post)"></span>
+                </td>
+
+            </tr>
+        </tbody>
+        <tbody *ngIf="comments.length === 0">
+            <tr>
+                <td colspan="5">
+                    No Comments
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

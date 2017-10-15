@@ -1,13 +1,13 @@
 import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import * as _ from 'lodash';
 
 import {clientRequests, serverResponse} from '../../constants/server.keys';
 import {Post} from '../../model/post';
 import {Resort} from '../../model/resort';
 import {User} from '../../model/user';
 import {Mediator} from '../../service/mediator';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-posts',
@@ -22,6 +22,7 @@ export class PostsComponent implements OnInit {
   public resort: Resort = null;
   public resorts: Resort[] = null;
   public canSubmit = false;
+  public title = '';
 
   public selectedResort: Resort = null;
 
@@ -76,12 +77,12 @@ export class PostsComponent implements OnInit {
       if (postId.error) {
         console.log(postId.error);
       } else {
-          const index = _.findIndex(this.posts, p => {
-            return +p.id === +postId.id;
-          });
-          if (index > -1) {
-            this.posts.splice(index, 1);
-          }
+        const index = _.findIndex(this.posts, p => {
+          return +p.id === +postId.id;
+        });
+        if (index > -1) {
+          this.posts.splice(index, 1);
+        }
       }
     });
 
@@ -93,13 +94,16 @@ export class PostsComponent implements OnInit {
     this.canSubmit = false;
     this.post = new Post();
     this.post.userId = this.user.id;
-    this.modalService.open(content, { windowClass: 'wide-modal' }).result.then(
-        (result) => {
-          console.log(result);
-        },
-        (reason) => {
-          console.log(this.getDismissReason(reason));
-        });
+    this.title = 'Add Post';
+    this.enableSubmit();
+    this.modalService.open(content, {windowClass: 'wide-modal'})
+        .result.then(
+            (result) => {
+              console.log(result);
+            },
+            (reason) => {
+              console.log(this.getDismissReason(reason));
+            });
   }
 
   public enableSubmit() {
@@ -122,6 +126,8 @@ export class PostsComponent implements OnInit {
     this.post = _.cloneDeep(post);
     this.post.userId = this.user.id;
     this.post.resort = post.resort;
+    this.title = 'Edit ' + post.title;
+    this.enableSubmit();
     this.modalService.open(content).result.then(
         (result) => {
           console.log(result);

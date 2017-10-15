@@ -1,0 +1,42 @@
+<div id="ratingContainer" class="rate" [class.locked]="locked" (mousemove)="moveMouse($event)" (click)="locked = !locked; recordRate()">
+    <div class="star">
+        <div class="img-left">
+            <img [src]="rating >= 0 ? imagesLeft[1] : imagesLeft[0]">
+        </div>
+        <div class="img-right">
+            <img [src]="rating >= 1 ? imagesRight[1] : imagesRight[0]">
+        </div>
+    </div>
+    <div class="star">
+        <div class="img-left">
+            <img [src]="rating >= 2 ? imagesLeft[1] : imagesLeft[0]">
+        </div>
+        <div class="img-right">
+            <img [src]="rating >= 3 ? imagesRight[1] : imagesRight[0]">
+        </div>
+    </div>
+    <div class="star">
+        <div class="img-left">
+            <img [src]="rating >= 4 ? imagesLeft[1] : imagesLeft[0]">
+        </div>
+        <div class="img-right">
+            <img [src]="rating >= 5 ? imagesRight[1] : imagesRight[0]">
+        </div>
+    </div>
+    <div class="star">
+        <div class="img-left">
+            <img [src]="rating >= 6 ? imagesLeft[1] : imagesLeft[0]">
+        </div>
+        <div class="img-right">
+            <img [src]="rating >= 7 ? imagesRight[1] : imagesRight[0]">
+        </div>
+    </div>
+    <div class="star">
+        <div class="img-left">
+            <img [src]="rating >= 8 ? imagesLeft[1] : imagesLeft[0]">
+        </div>
+        <div class="img-right">
+            <img [src]="rating >= 9 ? imagesRight[1] : imagesRight[0]">
+        </div>
+    </div>
+</div>
