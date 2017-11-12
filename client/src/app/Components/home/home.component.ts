@@ -22,6 +22,8 @@ export class HomeComponent implements OnChanges {
       if (this.user) {
         // tslint:disable-next-line:no-bitwise
         this.isAdmin = (this.user.priv & 4) > 0;
+      } else {
+        this.isAdmin = false;
       }
     }
   }

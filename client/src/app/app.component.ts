@@ -40,4 +40,8 @@ export class AppComponent implements OnInit {
       this.buttons[0].isSelected = true;
     }
   }
+
+  public logOut(logout: boolean) {
+    this.user = null;
+  }
 }

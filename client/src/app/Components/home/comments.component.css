@@ -1,0 +1,15 @@
+.pad {
+    margin: 30px 50px;
+}
+
+thead {
+    background: #6E6D6B !important;
+    color: white;
+}
+
+table,
+tr,
+th,
+td {
+    border: solid 1px #91908F;
+}

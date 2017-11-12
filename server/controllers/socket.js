@@ -1,6 +1,7 @@
 var usrCtrl = require('../controllers/userController');
 var resortCtrl = require('../controllers/resortsController');
 var postCtrl = require('../controllers/postsController');
+var rateCtrl = require('../controllers/rateController');
 var { Client } = require('pg');
 
 module.exports =
@@ -80,7 +81,7 @@ module.exports =
                 });
             });
             socket.on('addPost', (post) => {
-                if(post.id) {
+                if (post.id) {
                     postCtrl.updatePost(client, format, post, (err, updatedPost) => {
                         if (err) {
                             socket.emit('updatedPost', { error: err });
@@ -107,6 +108,55 @@ module.exports =
                     } else {
                         // Broadcast new post to all users
                         io.emit('removedPost', removedPostId);
+                    }
+                });
+            });
+            socket.on('getRatingsByUser', (userId) => {
+                rateCtrl.getRatingsByUser(client, format, userId, (err, ratings) => {
+                    if (err) {
+                        socket.emit('ratingsByUser', { error: err });
+                    } else {
+                        socket.emit('ratingsByUser', ratings);
+                    }
+                });
+            });
+            socket.on('getRatingsByResort', (resortId) => {
+                rateCtrl.getRatingsByResort(client, format, resortId, (err, ratings) => {
+                    if (err) {
+                        socket.emit('ratingsByResort', { error: err });
+                    } else {
+                        socket.emit('ratingsByResort', ratings);
+                    }
+                });
+            });
+            socket.on('addRating', (rating) => {
+                if (rating.id) {
+                    rateCtrl.updateRating(client, format, rating, (err, updatedRating) => {
+                        if (err) {
+                            socket.emit('updatedRating', { error: err });
+                        } else {
+                            // Broadcast new post to all users
+                            io.emit('updatedRating', updatedRating);
+                        }
+                    });
+                } else {
+                    rateCtrl.addRating(client, format, rating, (err, newRating) => {
+                        if (err) {
+                            socket.emit('newRating', { error: err });
+                        } else {
+                            // Broadcast new post to all users
+                            io.emit('newRating', newRating);
+                        }
+                    });
+                }
+            });
+            socket.on('removeRating', (ratingId) => {
+                rateCtrl.removeRating(client, format, ratingId, (err, removedRatingId) => {
+                    if (err) {
+                        socket.emit('removedRating', { error: err });
+                    } else {
+                        // Broadcast new post to all users
+                        io.emit('removedRating', removedRatingId);
                     }
                 });
             });

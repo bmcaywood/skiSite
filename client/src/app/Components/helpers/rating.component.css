@@ -11,6 +11,15 @@
     width: 20px;
 }
 
+.img-right.small {
+    margin-left: -0.5px;
+    width: 12px;
+}
+
+.img-left.small {
+    width: 12px;
+}
+
 img {
     width: 100%;
 }
@@ -19,8 +28,14 @@ img {
     width: max-content;
     margin: 10px;
     cursor: pointer;
+    display: inline-block;
 }
 
 .locked {
     background: #D7D8DA;
+}
+
+.locked:hover,
+.disabled {
+    cursor: default;
 }

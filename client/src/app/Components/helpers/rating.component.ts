@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CKEditorComponent} from 'ng2-ckeditor';
 
 @Component({
@@ -6,15 +6,17 @@ import {CKEditorComponent} from 'ng2-ckeditor';
   templateUrl: './rating.component.html',
   styleUrls: ['./rating.component.css']
 })
-export class RatingComponent implements OnInit {
+export class RatingComponent implements OnInit, OnChanges {
   @Input() rating: number;
+  @Input() disabled = false;
+  @Input() locked = false;
+  @Input() small = false;
   @Output('newRating')
   newRating: EventEmitter<number> = new EventEmitter<number>();
   private ratings: number[] = [.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
   public startX: number;
   public divider: number;
-  public locked = false;
 
   public imagesLeft: string[] = [
     '../../assets/images/flakeLeftEmpty.png',
@@ -31,8 +33,14 @@ export class RatingComponent implements OnInit {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.rating) {
+      this.rating = this.ratings.indexOf(changes.rating.currentValue);
+    }
+  }
+
   public moveMouse(e: any) {
-    if (this.locked) {
+    if (this.locked || this.disabled) {
       return;
     }
     if (!this.startX) {
@@ -48,7 +56,6 @@ export class RatingComponent implements OnInit {
     } else {
       this.rating = Math.round(value);
     }
-    console.log(this.rating);
   }
 
   public recordRate() {

@@ -51,3 +51,16 @@
     width: 10px;
     height: 10px;
 }
+
+.dropdown .dropdownContent {
+    display: none;
+    position: absolute;
+    top: 20px;
+    left: -37px;
+    padding: 10px;
+    background: #95989A;
+}
+
+.dropdown:hover .dropdownContent {
+    display: inline-block;
+}

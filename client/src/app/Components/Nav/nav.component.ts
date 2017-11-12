@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import * as _ from 'lodash';
 import {CookieService} from 'ngx-cookie';
 
@@ -14,6 +14,8 @@ export class NavComponent implements OnChanges, OnInit {
   @Input() buttons: NavButton[] = [];
   @Input() loginButton: NavButton = null;
   @Input() user: any = null;
+  @Output('logOut')
+  logOut: EventEmitter<boolean> = new EventEmitter<boolean>();
   public isExpanded = false;
   public selected: NavButton = null;
 
@@ -53,5 +55,10 @@ export class NavComponent implements OnChanges, OnInit {
     btn.isSelected = true;
     this.selected = btn;
     this.cookieService.putObject('nav', this.selected);
+  }
+
+  public logout() {
+    this.cookieService.removeAll();
+    this.logOut.emit(true);
   }
 }

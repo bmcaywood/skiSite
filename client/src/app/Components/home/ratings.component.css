@@ -1,0 +1,82 @@
+.pad {
+    margin: 30px 50px;
+}
+
+button:hover,
+button:active,
+button:focus {
+    background: #D3A741;
+}
+
+button.close:hover {
+    background: #FFFFFF;
+}
+
+button {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background: #C6A556;
+    border: 0;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #FFFFFF;
+    font-size: 14px;
+    -webkit-transition: all 0.3 ease;
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+thead {
+    background: #6E6D6B !important;
+    color: white;
+}
+
+table,
+tr,
+th,
+td {
+    border: solid 1px #91908F;
+}
+
+.btn-primary.disabled {
+    background: gray;
+    cursor: default;
+}
+
+.form {
+    max-width: 100%;
+    padding: 5px;
+    text-align: inherit;
+    box-shadow: none;
+    margin: 0px;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+    padding: 5px 10px;
+}
+
+.modal .modal-dialog {
+    max-width: 90% !important;
+}
+
+textarea {
+    width: 100%;
+    background: #f2f2f2;
+    border: none;
+}
+
+textarea:focus {
+    outline: #D3A741 auto 2px;
+}
+
+.form input {
+    margin: 0px;
+    padding: 10px;
+}
+
+.center {
+    margin-top: 10px;
+    width: 40px;
+}

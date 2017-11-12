@@ -63,7 +63,7 @@ function addPost(client, format, post, cb) {
     }
 
     var query = format(
-        'INSERT INTO blog_post(user_id, resort_id, text, title, time_stamp) VALUES(%L, %L, %L, %L, CURRENT_TIMESTAMP) RETURNING *',
+        'INSERT INTO blog_post(user_id, resort_id, text, title, time_stamp) VALUES(%L, %L, %L, %L, CURRENT_TIMESTAMP AT TIME ZONE "UTC") RETURNING *',
         post.userId, post.resort.id, post.text, post.title);
 
     client.query(query, (err, res) => {
@@ -81,12 +81,13 @@ function addPost(client, format, post, cb) {
 }
 
 function updatePost(client, format, post, cb) {
-    if (!post || !post.id || !post.userId || !post.resort.id || !post.title || !post.text) {
+    if (!post || !post.id || !post.userId || !post.resort.id || !post.title ||
+        !post.text) {
         return ('no user or post specified');
     }
 
     var query = format(
-        'UPDATE blog_post SET user_id = %L, resort_id = %L, text = %L, title = %L, time_stamp = CURRENT_TIMESTAMP WHERE id=%L RETURNING *',
+        'UPDATE blog_post SET user_id = %L, resort_id = %L, text = %L, title = %L, time_stamp = CURRENT_TIMESTAMP AT TIME ZONE "UTC" WHERE id=%L RETURNING *',
         post.userId, post.resort.id, post.text, post.title, post.id);
 
     client.query(query, (err, res) => {
@@ -103,26 +104,26 @@ function updatePost(client, format, post, cb) {
     });
 }
 
-    function removePost(client, format, postId, cb) {
-        if (!postId) {
-            return ('no post specified');
-        }
-    
-        var query = format('DELETE FROM blog_post WHERE id=%L RETURNING id', postId);
-    
-        client.query(query, (err, res) => {
-            if (err) {
-                return cb(err, null)
-            }
-            if (res.rowCount == 0) {
-                return cb('no posts found for the specified resort', null);
-            }
-    
-            var deletedPost = res.rows[0];
-            client.end;
-            return cb(null, deletedPost);
-        });
+function removePost(client, format, postId, cb) {
+    if (!postId) {
+        return ('no post specified');
     }
+
+    var query = format('DELETE FROM blog_post WHERE id=%L RETURNING id', postId);
+
+    client.query(query, (err, res) => {
+        if (err) {
+            return cb(err, null)
+        }
+        if (res.rowCount == 0) {
+            return cb('no posts found for the specified resort', null);
+        }
+
+        var deletedPost = res.rows[0];
+        client.end;
+        return cb(null, deletedPost);
+    });
+}
 
 module.exports = {
     getAllPosts: getAllPosts,

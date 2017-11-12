@@ -8,6 +8,10 @@ const clientRequests: any = {
   GETPOSTSBYRESORT: 'getPostsByResort',
   ADDPOST: 'addPost',
   REMOVEPOST: 'removePost',
+  ADDRATING: 'addRating',
+  REMOVERATING: 'removeRating',
+  GETRATINGSBYUSER: 'getRatingsByUser',
+  GETRATINGSBYRESORT: 'getRatingsByResort',
 };
 
 const serverResponse: any = {
@@ -21,6 +25,11 @@ const serverResponse: any = {
   NEWPOST: 'newPost',
   UPDATEDPOST: 'updatedPost',
   REMOVEDPOST: 'removedPost',
+  NEWRATING: 'newRating',
+  UPDATEDRATING: 'updatedRating',
+  REMOVEDRATING: 'removedRating',
+  RATINGSBYUSER: 'ratingsByUser',
+  RATINGSBYRESORT: 'ratingsByResort',
 };
 
 export {clientRequests, serverResponse};

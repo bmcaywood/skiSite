@@ -13,7 +13,11 @@
         <li *ngIf="!user" class="nav-item" (click)="selectButton(loginButton)" [ngClass]="{'active': loginButton.isSelected}" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">{{loginButton.name}}</li>
         <li *ngIf="user" class="nav-item" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
             <span>Welcome {{user.name}}</span>
-            <span class="fa fa-gear"></span>
+            <div class="fa fa-gear dropdown">
+                <span class="dropdownContent" (click)="logout();selectButton(buttons[0])">
+                    logout
+                </span>
+            </div>
         </li>
     </ul>
     <!-- </div> -->

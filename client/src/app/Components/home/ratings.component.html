@@ -1,5 +1,5 @@
 <div class="col-lg-12 pad">
-    <button type="button" class="btn btn-sm" (click)="openPostModal(content)">ADD RATING</button>
+    <button type="button" class="btn btn-sm" (click)="openRateModal(content)">ADD RATING</button>
     <table class="table">
         <thead>
             <tr>
@@ -17,25 +17,28 @@
             <tr *ngFor="let rating of userRatings">
                 <td>{{rating.resort.name}}</td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.OVERALL]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[1]?.rating"></app-rater>
                 </td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.TERRAIN]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[2]?.rating"></app-rater>
                 </td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.PARK]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[3]?.rating"></app-rater>
                 </td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.STAFF]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[4]?.rating"></app-rater>
                 </td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.FAMFRIENDLY]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[5]?.rating"></app-rater>
                 </td>
                 <td>
-                    <app-rater [rating]="userRatings[ratingType.CROWDCONTROL]?.rating"></app-rater>
+                    <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[6]?.rating"></app-rater>
                 </td>
-                <td> <span class="fa fa-edit" (click)="edit(content, post)"></span>
-                    <span class="fa fa-trash" (click)="remove(post)"></span>
+                <td>
+                    <div class="center">
+                        <span class="fa fa-edit" (click)="edit(content, rating)"></span>
+                        <span class="fa fa-trash" (click)="remove(rating)"></span>
+                    </div>
                 </td>
 
             </tr>
@@ -51,6 +54,64 @@
 </div>
 
 
-<div>
-    <app-rater></app-rater>
-</div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">{{title}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+    </div>
+    <div class="modal-body">
+        <div class="form">
+            <form class="login-form">
+                <span class="flex-column">
+                    <label for="resorts">Resort:</label>
+                    <select name="resorts" class="custom-select" [(ngModel)]="rating.resort">
+                        <option *ngFor="let res of resorts" [ngValue]="res">{{res.name}}</option>
+                    </select>
+                <hr>
+                    <span>
+                        Overall Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[1].rating" (newRating)="rating.ratings[1].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[1].ratingReason"></textarea>
+                <hr>
+                <span>
+                        Terrain Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[2].rating" (newRating)="rating.ratings[2].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[2].ratingReason"></textarea>
+                <hr>
+                <span>
+                        Park Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[3].rating" (newRating)="rating.ratings[3].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[3].ratingReason"></textarea>
+                <hr>
+                <span>
+                        Staff Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[4].rating" (newRating)="rating.ratings[4].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[4].ratingReason"></textarea>
+                <hr>
+                <span>
+                        Family-Freindly Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[5].rating" (newRating)="rating.ratings[5].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[5].ratingReason"></textarea>
+                <hr>
+                <span>
+                        Crowd-Control Rating:
+                        <app-rater [locked]="locked" [rating]="rating.ratings[6].rating" (newRating)="rating.ratings[6].rating = $event; enableSubmit()"></app-rater>
+                    </span>
+                <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[6].ratingReason"></textarea>
+                <hr>
+                </span>
+            </form>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-med" (click)="c('Close click')">Close</button>
+        <button type="button" class="btn btn-med" [class.disabled]="!canSubmit" (click)="saveRating(c)">Save</button>
+    </div>
+</ng-template>

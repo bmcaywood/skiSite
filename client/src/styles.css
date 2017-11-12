@@ -83,3 +83,13 @@
     background: gray;
     cursor: default;
 }
+
+.fa-edit:hover {
+    color: green;
+    cursor: pointer;
+}
+
+.fa-trash:hover {
+    color: red;
+    cursor: pointer;
+}

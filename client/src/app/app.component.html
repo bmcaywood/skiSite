@@ -4,7 +4,7 @@
             <img src="../../assets/images/banner.png" class="img-fluid" alt="Banner image">
             <img src="../../assets/images/logo.png" class="logo" alt="logo">
 
-            <app-nav [buttons]="buttons" [loginButton]="loginButton" [user]="user"></app-nav>
+            <app-nav (logOut)="logOut($event)" [buttons]="buttons" [loginButton]="loginButton" [user]="user"></app-nav>
 
 
             <div *ngIf="buttons[0].isSelected">

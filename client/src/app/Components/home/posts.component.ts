@@ -97,13 +97,15 @@ export class PostsComponent implements OnInit {
     this.title = 'Add Post';
     this.enableSubmit();
     this.modalService.open(content, {windowClass: 'wide-modal'})
-        .result.then(
+        .result
+        .then(
             (result) => {
               console.log(result);
             },
             (reason) => {
               console.log(this.getDismissReason(reason));
-            });
+            })
+        .catch(console.log.bind(console));
   }
 
   public enableSubmit() {
