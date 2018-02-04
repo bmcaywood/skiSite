@@ -1,7 +1,7 @@
 import {Component, Input, OnChanges} from '@angular/core';
 
 import {User} from '../../model/user';
-import {NavButton} from '../Nav/navButton.interface';
+import {NavButton} from '../helpers/navButton';
 
 @Component({
   selector: 'app-home',

@@ -1,0 +1,16 @@
+<div class="container offset-1">
+    <div class="row">
+        <div *ngFor="let button of buttons" class="col-1 no-pad skill" (click)="selectButton(button)" [ngClass]="{'active': button.isSelected}">
+            <img src="../assets/images/skill/{{button.name}}.png">
+        </div>
+    </div>
+
+    <div class="container skill-detail">
+        <div *ngIf="buttons[0].isSelected"> Green Circle content</div>
+        <div *ngIf="buttons[1].isSelected"> Blue Square Content</div>
+        <div *ngIf="buttons[2].isSelected"> Black Diamond Content</div>
+        <div *ngIf="buttons[3].isSelected"> Double Black Diamond Content</div>
+        <div *ngIf="buttons[4].isSelected"> Park Content</div>
+        <div *ngIf="!selected">Click on the icons above to learn about what is good for that skier level/interests.</div>
+    </div>
+</div>

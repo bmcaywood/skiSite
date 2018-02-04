@@ -86,7 +86,7 @@ export class PostsComponent implements OnInit {
       }
     });
 
-    this.mediator.request(clientRequests.GETRESORTS);
+    // this.mediator.request(clientRequests.GETRESORTS);
     this.mediator.request(clientRequests.GETPOSTSBYUSER, this.user.id);
   }
 

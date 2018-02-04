@@ -1,8 +1,8 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import * as _ from 'lodash';
 import {CookieService} from 'ngx-cookie';
+import {NavButton} from '../helpers/navButton';
 
-import {NavButton} from './navButton.interface';
 
 @Component({
   selector: 'app-side-nav',

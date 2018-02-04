@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import * as _ from 'lodash';
 import {CookieService} from 'ngx-cookie';
-
-import {NavButton} from './navButton.interface';
+import {NavButton} from '../helpers/navButton';
 
 @Component({
   selector: 'app-nav',

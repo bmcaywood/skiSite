@@ -18,13 +18,10 @@ export class RatingComponent implements OnInit, OnChanges {
   public startX: number;
   public divider: number;
 
-  public imagesLeft: string[] = [
-    '../../assets/images/flakeLeftEmpty.png',
-    '../../assets/images/flakeLeftFilled.png'
-  ];
-  public imagesRight: string[] = [
-    '../../assets/images/flakeRightEmpty.png',
-    '../../assets/images/flakeRightFilled.png'
+  public flakes: string[] = [
+    '../../assets/images/flakes/snowEmpty.png',
+    '../../assets/images/flakes/snowHalf.png',
+    '../../assets/images/flakes/snowFull.png'
   ];
 
   ngOnInit(): void {

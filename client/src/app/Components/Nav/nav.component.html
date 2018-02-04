@@ -1,24 +1,29 @@
 <nav class="navbar navbar-inverse navbar-toggleable-md">
-    <!-- <button class="navbar-toggler navbar-toggler-right bright" type="button" (click)="isExpanded = !isExpanded" [attr.aria-expanded]="!isExpanded" aria-controls="navbar">
+    <button class="navbar-toggler navbar-toggler-right bright" type="button" (click)="isExpanded = !isExpanded" [attr.aria-expanded]="!isExpanded" aria-controls="navbar">
                             <span class="navbar-toggler-icon"></span>
-                          </button> -->
+                          </button>
 
-    <!-- <div class="collapse navbar-collapse" id="navbar" [ngbCollapse]="!isExpanded"> -->
-    <ul class="navbar-nav mr-auto">
-        <li *ngFor="let nav of buttons" class="nav-item" (click)="selectButton(nav)" [ngClass]="{'active': nav.isSelected}" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
-            <span [ngClass]="{'active': nav.isSelected}">{{nav.name}}</span>
-        </li>
-    </ul>
-    <ul class="navbar-nav mr-atuo right">
-        <li *ngIf="!user" class="nav-item" (click)="selectButton(loginButton)" [ngClass]="{'active': loginButton.isSelected}" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">{{loginButton.name}}</li>
-        <li *ngIf="user" class="nav-item" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
-            <span>Welcome {{user.name}}</span>
-            <div class="fa fa-gear dropdown">
-                <span class="dropdownContent" (click)="logout();selectButton(buttons[0])">
+    <div class="collapse navbar-collapse" id="navbar" [ngbCollapse]="!isExpanded">
+        <ul class="navbar-nav mr-auto">
+            <li *ngFor="let nav of buttons" class="nav-item" (click)="selectButton(nav)" [ngClass]="{'active': nav.isSelected}" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
+                <span [ngClass]="{'active': nav.isSelected}">{{nav.name}}</span>
+                <div *ngIf="nav.subButtons && nav.subButtons.length > 0">
+                    <div *ngFor="let subNav of nav.subButtons" class="sub-nav">
+                        <span [ngClass]="{'active': subNav.isSelected}">{{subNav.name}}</span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav mr-atuo right">
+            <li *ngIf="!user" class="nav-item" (click)="selectButton(loginButton)" [ngClass]="{'active': loginButton.isSelected}" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">{{loginButton.name}}</li>
+            <li *ngIf="user" class="nav-item" [ngStyle]="{'background': isExpanded ? 'rgba(128,128,128, 0.8)' : ''}">
+                <span>Welcome {{user.name}}</span>
+                <div class="fa fa-gear dropdown">
+                    <span class="dropdownContent" (click)="logout();selectButton(buttons[0])">
                     logout
                 </span>
-            </div>
-        </li>
-    </ul>
-    <!-- </div> -->
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>

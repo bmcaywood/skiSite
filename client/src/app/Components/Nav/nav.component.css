@@ -11,6 +11,10 @@
     flex-direction: row;
 }
 
+.collapse.show .navbar-nav {
+    flex-direction: column;
+}
+
 .navbar-collapse {
     height: 35px;
 }
@@ -63,4 +67,8 @@
 
 .dropdown:hover .dropdownContent {
     display: inline-block;
+}
+
+.sub-nav {
+    background: blue;
 }

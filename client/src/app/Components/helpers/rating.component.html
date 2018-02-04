@@ -1,42 +1,17 @@
 <div id="ratingContainer" class="rate" [class.disabled]="disabled" [class.locked]="locked" (mousemove)="moveMouse($event)" (click)="!disabled ? locked = !locked : locked; recordRate()">
     <div class="star">
-        <div class="img-left" [class.small]="small">
-            <img [src]="rating >= 0 ? imagesLeft[1] : imagesLeft[0]">
-        </div>
-        <div class="img-right" [class.small]="small">
-            <img [src]="rating >= 1 ? imagesRight[1] : imagesRight[0]">
-        </div>
+        <img class="flake" [class.small]="small" [src]="rating >= 1 ? flakes[2] : rating >= 0 ? flakes[1] : flakes[0]">
     </div>
     <div class="star">
-        <div class="img-left" [class.small]="small">
-            <img [src]="rating >= 2 ? imagesLeft[1] : imagesLeft[0]">
-        </div>
-        <div class="img-right" [class.small]="small">
-            <img [src]="rating >= 3 ? imagesRight[1] : imagesRight[0]">
-        </div>
+        <img class="flake" [class.small]="small" [src]="rating >= 3 ? flakes[2] : rating >= 2 ? flakes[1] : flakes[0]">
     </div>
     <div class="star">
-        <div class="img-left" [class.small]="small">
-            <img [src]="rating >= 4 ? imagesLeft[1] : imagesLeft[0]">
-        </div>
-        <div class="img-right" [class.small]="small">
-            <img [src]="rating >= 5 ? imagesRight[1] : imagesRight[0]">
-        </div>
+        <img class="flake" [class.small]="small" [src]="rating >= 5 ? flakes[2] : rating >= 4 ? flakes[1] : flakes[0]">
     </div>
     <div class="star">
-        <div class="img-left" [class.small]="small">
-            <img [src]="rating >= 6 ? imagesLeft[1] : imagesLeft[0]">
-        </div>
-        <div class="img-right" [class.small]="small">
-            <img [src]="rating >= 7 ? imagesRight[1] : imagesRight[0]">
-        </div>
+        <img class="flake" [class.small]="small" [src]="rating >= 7 ? flakes[2] : rating >= 6 ? flakes[1] : flakes[0]">
     </div>
     <div class="star">
-        <div class="img-left" [class.small]="small">
-            <img [src]="rating >= 8 ? imagesLeft[1] : imagesLeft[0]">
-        </div>
-        <div class="img-right" [class.small]="small">
-            <img [src]="rating >= 9 ? imagesRight[1] : imagesRight[0]">
-        </div>
+        <img class="flake" [class.small]="small" [src]="rating >= 9 ? flakes[2] : rating >= 8 ? flakes[1] : flakes[0]">
     </div>
 </div>

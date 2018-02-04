@@ -1,7 +1,16 @@
+/*************** Global Style *********/
+
 .no-pad {
     padding: 0 !important;
     margin: 0 !important;
 }
+
+.offset-1 {
+    padding-top: 20px;
+}
+
+
+/*************** Form Style **********/
 
 .form {
     position: relative;
@@ -84,6 +93,9 @@
     cursor: default;
 }
 
+
+/**************** fa Style *************/
+
 .fa-edit:hover {
     color: green;
     cursor: pointer;
@@ -92,4 +104,11 @@
 .fa-trash:hover {
     color: red;
     cursor: pointer;
+}
+
+
+/**************** modal Style ***********/
+
+.modal .modal-dialog {
+    max-width: 90% !important;
 }

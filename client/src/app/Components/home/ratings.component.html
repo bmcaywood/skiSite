@@ -15,7 +15,7 @@
         </thead>
         <tbody *ngIf="userRatings.length > 0">
             <tr *ngFor="let rating of userRatings">
-                <td>{{rating.resort.name}}</td>
+                <td class="td-center">{{rating.resort.name}}</td>
                 <td>
                     <app-rater [disabled]="true" [small]="true" [rating]="rating.ratings[1]?.rating"></app-rater>
                 </td>
@@ -70,40 +70,52 @@
                         <option *ngFor="let res of resorts" [ngValue]="res">{{res.name}}</option>
                     </select>
                 <hr>
-                    <span>
+                    <div>
+                        <div class="ver-center">
                         Overall Rating:
-                        <app-rater [locked]="locked" [rating]="rating.ratings[1].rating" (newRating)="rating.ratings[1].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                        </div>
+                <app-rater [locked]="locked" [rating]="rating.ratings[1].rating" (newRating)="rating.ratings[1].rating = $event; enableSubmit()"></app-rater>
+                </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[1].ratingReason"></textarea>
                 <hr>
-                <span>
+                <div>
+                        <div class="ver-center">
                         Terrain Rating:
+                        </div>
                         <app-rater [locked]="locked" [rating]="rating.ratings[2].rating" (newRating)="rating.ratings[2].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                    </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[2].ratingReason"></textarea>
                 <hr>
-                <span>
+                <div>
+                        <div class="ver-center">
                         Park Rating:
+                        </div>
                         <app-rater [locked]="locked" [rating]="rating.ratings[3].rating" (newRating)="rating.ratings[3].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                    </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[3].ratingReason"></textarea>
                 <hr>
-                <span>
+                <div>
+                        <div class="ver-center">
                         Staff Rating:
+                        </div>
                         <app-rater [locked]="locked" [rating]="rating.ratings[4].rating" (newRating)="rating.ratings[4].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                    </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[4].ratingReason"></textarea>
                 <hr>
-                <span>
+                <div>
+                        <div class="ver-center">
                         Family-Freindly Rating:
+                        </div>
                         <app-rater [locked]="locked" [rating]="rating.ratings[5].rating" (newRating)="rating.ratings[5].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                    </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[5].ratingReason"></textarea>
                 <hr>
-                <span>
+                <div>
+                        <div class="ver-center">
                         Crowd-Control Rating:
+                        </div>
                         <app-rater [locked]="locked" [rating]="rating.ratings[6].rating" (newRating)="rating.ratings[6].rating = $event; enableSubmit()"></app-rater>
-                    </span>
+                    </div>
                 <textarea name="ratingReason" placeholder="Describe reason for your rating..." [(ngModel)]="rating.ratings[6].ratingReason"></textarea>
                 <hr>
                 </span>

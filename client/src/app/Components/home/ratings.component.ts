@@ -92,7 +92,7 @@ export class RatingsComponent implements OnInit {
       }
     });
 
-    this.mediator.request(clientRequests.GETRESORTS);
+    // this.mediator.request(clientRequests.GETRESORTS);
     this.mediator.request(clientRequests.GETRATINGSBYUSER, this.user.id);
   }
 

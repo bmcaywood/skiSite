@@ -2,6 +2,7 @@ var usrCtrl = require('../controllers/userController');
 var resortCtrl = require('../controllers/resortsController');
 var postCtrl = require('../controllers/postsController');
 var rateCtrl = require('../controllers/rateController');
+var commonCtrl = require('../controllers/common.controller');
 var { Client } = require('pg');
 
 module.exports =
@@ -12,6 +13,7 @@ module.exports =
 
 
         io.on('connection', (socket) => {
+            commonCtrl.sendCommonItems(socket, client, format);
             socket.on('userLogin', (user) => {
                 console.log('here with user: ' + JSON.stringify(user));
                 usrCtrl.login(client, format, user.username, user.pass, (err, user) => {
@@ -35,15 +37,15 @@ module.exports =
                         }
                     });
             });
-            socket.on('getResorts', () => {
-                resortCtrl.getResorts(client, format, (err, resorts) => {
-                    if (err) {
-                        socket.emit('resorts', { error: err });
-                    } else {
-                        socket.emit('resorts', resorts);
-                    }
-                });
-            });
+            // socket.on('getResorts', () => {
+            //     resortCtrl.getResorts(client, format, (err, resorts) => {
+            //         if (err) {
+            //             socket.emit('resorts', { error: err });
+            //         } else {
+            //             socket.emit('resorts', resorts);
+            //         }
+            //     });
+            // });
             socket.on('addResort', (resort) => {
                 resortCtrl.addResort(client, format, resort, (err, addedResort) => {
                     if (err) {
